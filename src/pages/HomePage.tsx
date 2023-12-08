@@ -29,7 +29,7 @@ const HomePage = () => {
             </Link>
             <Link to="/wordgame">
               <span className="text-md font-semibold px-10 py-3 bg-blus text-white rounded-xl hover:bg-teal-700 duration-300">
-                Word Game
+                Word Scramble
               </span>
             </Link>
             <Link to="/tictactoe">

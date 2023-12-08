@@ -1,15 +1,16 @@
-// src/App.js
 import React, { useState } from "react"
 import Navbar from "../components/Navbar"
 
-const initialBoard = Array(9).fill(null)
+type Board = Array<string | null>
 
-const App = () => {
-  const [board, setBoard] = useState(initialBoard)
-  const [isXNext, setIsXNext] = useState(true)
+const initialBoard: Board = Array(9).fill(null)
 
-  const calculateWinner = (squares) => {
-    const lines = [
+const App: React.FC = () => {
+  const [board, setBoard] = useState<Board>(initialBoard)
+  const [isXNext, setIsXNext] = useState<boolean>(true)
+
+  const calculateWinner = (squares: Board): string | null => {
+    const lines: number[][] = [
       [0, 1, 2],
       [3, 4, 5],
       [6, 7, 8],
@@ -23,26 +24,26 @@ const App = () => {
     for (let i = 0; i < lines.length; i++) {
       const [a, b, c] = lines[i]
       if (squares[a] && squares[a] === squares[b] && squares[a] === squares[c]) {
-        return squares[a]
+        return squares[a] as string
       }
     }
 
     return null
   }
 
-  const handleClick = (index) => {
+  const handleClick = (index: number): void => {
     if (board[index] || calculateWinner(board)) {
       return
     }
 
-    const newBoard = [...board]
+    const newBoard: Board = [...board]
     newBoard[index] = isXNext ? "X" : "O"
 
     setBoard(newBoard)
     setIsXNext(!isXNext)
   }
 
-  const renderSquare = (index) => (
+  const renderSquare = (index: number): JSX.Element => (
     <button
       className="bg-white border border-gray-300 rounded-md shadow-md h-12 w-12 flex items-center justify-center text-2xl cursor-pointer"
       onClick={() => handleClick(index)}
@@ -56,7 +57,7 @@ const App = () => {
 
   return (
     <>
-      <Navbar/>
+      <Navbar />
       <h1 className="text-center text-blus font-bold text-4xl mt-10">Tic Tac Toe</h1>
       <div className="text-lg text-center font-semibold mt-10">{status}</div>
       <div className="flex justify-center items-center mt-5">
@@ -71,4 +72,5 @@ const App = () => {
     </>
   )
 }
+
 export default App

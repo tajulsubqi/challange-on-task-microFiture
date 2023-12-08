@@ -15,7 +15,7 @@ const CountdownDate: React.FC = () => {
   )
   const [countdownActive, setCountdownActive] = useState<boolean>(false)
 
-  function calculateTimeRemaining() {
+  function calculateTimeRemaining(): TimeRemaining {
     const currentTime = new Date()
     const targetTime = new Date(targetDate)
 
@@ -33,7 +33,7 @@ const CountdownDate: React.FC = () => {
   }
 
   useEffect(() => {
-    let intervalId
+    let intervalId: NodeJS.Timeout
 
     if (countdownActive) {
       intervalId = setInterval(() => {
@@ -58,6 +58,12 @@ const CountdownDate: React.FC = () => {
     setCountdownActive(false)
   }
 
+  const resetCountdown = () => {
+    setTargetDate("")
+    setCountdownActive(false)
+    setTimeRemaining(calculateTimeRemaining())
+  }
+
   return (
     <>
       <Navbar />
@@ -67,7 +73,7 @@ const CountdownDate: React.FC = () => {
         </h1>
         <div className="mx-auto flex justify-center">
           <div>
-            <div className="mt-10 ">
+            <div className="mt-10 flex justify-center">
               <label className="text-base text-slate-600">
                 Set Target Date:
                 <input
@@ -81,9 +87,11 @@ const CountdownDate: React.FC = () => {
 
             <p className="mt-5">
               Time Remaining:{" "}
-              <span className="block w-72 bg-blus text-white px-3 py-2  mt-2 rounded-xl">
-                {timeRemaining.days} days, {timeRemaining.hours} hours,{" "}
-                {timeRemaining.minutes} minutes, {timeRemaining.seconds} seconds
+              <span className="block  text-blus text-4xl font-bold px-3 py-2  mt-2 rounded-xl w-full">
+                {timeRemaining.days} <span className="text-base">days,</span>{" "}
+                {timeRemaining.hours} <span className="text-base">hours,</span>{" "}
+                {timeRemaining.minutes} <span className="text-base">minutes,</span>{" "}
+                {timeRemaining.seconds} <span className="text-base">seconds,</span>
               </span>
             </p>
           </div>
@@ -101,6 +109,12 @@ const CountdownDate: React.FC = () => {
             onClick={stopCountdown}
           >
             Stop
+          </button>
+          <button
+            className="bg-yellow-500 text-white w-10 h-10 font-bold text-sm rounded-full hover:bg-yellow-700 hover:scale-110 ml-3 transition-all hover:duration-300"
+            onClick={resetCountdown}
+          >
+            Reset
           </button>
         </div>
       </div>

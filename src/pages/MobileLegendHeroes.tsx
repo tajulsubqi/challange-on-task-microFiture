@@ -2,9 +2,15 @@ import { useState, useEffect } from "react"
 import axios from "axios"
 import Navbar from "../components/Navbar"
 
-const MobileLegendHeroes = () => {
-  const [data, setData] = useState([])
-  const [search, setSearch] = useState("")
+interface Hero {
+  hero_name: string
+  hero_role: string
+  hero_specially: string
+}
+
+const MobileLegendHeroes: React.FC = () => {
+  const [data, setData] = useState<Hero[]>([])
+  const [search, setSearch] = useState<string>("")
 
   const fetchData = async () => {
     try {

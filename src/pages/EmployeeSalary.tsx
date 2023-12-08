@@ -1,20 +1,24 @@
 import { useState } from "react"
 import Navbar from "../components/Navbar"
 
-const EmployeeSalary = () => {
-  const [employeName, setEmployeName] = useState("")
-  const [salary, setSalary] = useState("")
-  const [allowance, setAllowance] = useState("")
-  const [tax, setTax] = useState("")
-  const [totalSalary, setTotalSalary] = useState("")
+interface EmployeeSalaryProps {
+  // define props if any
+}
 
-  const handleSubmit = (e: any) => {
+const EmployeeSalary: React.FC<EmployeeSalaryProps> = () => {
+  const [employeName, setEmployeName] = useState<string>("")
+  const [salary, setSalary] = useState<number | string>("")
+  const [allowance, setAllowance] = useState<number | string>("")
+  const [tax, setTax] = useState<number | string>("")
+  const [totalSalary, setTotalSalary] = useState<number | string>("")
+
+  const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault()
 
     // Mengonversi nilai input menjadi angka
-    const salaryValue = parseFloat(salary)
-    const allowanceValue = parseFloat(allowance)
-    const taxValue = parseFloat(tax)
+    const salaryValue = parseFloat(salary as string)
+    const allowanceValue = parseFloat(allowance as string)
+    const taxValue = parseFloat(tax as string)
 
     const calculatedTotalSalary = salaryValue + allowanceValue - taxValue
     setTotalSalary(calculatedTotalSalary)
@@ -41,7 +45,7 @@ const EmployeeSalary = () => {
                   name="employe"
                   value={employeName}
                   onChange={(e) => setEmployeName(e.target.value)}
-                  className="w-full block mt-2 text-sm px-5  py-2 border border-slate-300 shadow rounded-lg"
+                  className="w-full block mt-2 text-sm px-5 py-2 border border-slate-300 shadow rounded-lg"
                 />
               </div>
 
@@ -54,7 +58,7 @@ const EmployeeSalary = () => {
                   name="salary"
                   value={salary}
                   onChange={(e) => setSalary(e.target.value)}
-                  className="w-full block mt-2 text-sm px-5  py-2 border border-slate-300 shadow rounded-lg"
+                  className="w-full block mt-2 text-sm px-5 py-2 border border-slate-300 shadow rounded-lg"
                 />
               </div>
               <div className="mt-3">
@@ -66,7 +70,7 @@ const EmployeeSalary = () => {
                   name="allowance"
                   value={allowance}
                   onChange={(e) => setAllowance(e.target.value)}
-                  className="w-full block mt-2 text-sm px-5  py-2 border border-slate-300 shadow rounded-lg"
+                  className="w-full block mt-2 text-sm px-5 py-2 border border-slate-300 shadow rounded-lg"
                 />
               </div>
 
@@ -79,7 +83,7 @@ const EmployeeSalary = () => {
                   name="tax"
                   value={tax}
                   onChange={(e) => setTax(e.target.value)}
-                  className="w-full block mt-2 text-sm px-5  py-2 border border-slate-300 shadow rounded-lg"
+                  className="w-full block mt-2 text-sm px-5 py-2 border border-slate-300 shadow rounded-lg"
                 />
               </div>
 
@@ -95,7 +99,7 @@ const EmployeeSalary = () => {
               <thead>
                 <tr className="text-sm bg-sky-300">
                   <th className="border border-gray-500 px-4 py-2 ">Nama</th>
-                  <th className="border border-gray-500 px-4 py-2">Gaji</th>
+                  <th className="border border-gray-500 px-4 py-2">Gaji Pokok</th>
                   <th className="border border-gray-500 px-4 py-2">Tunjangan</th>
                   <th className="border border-gray-500 px-4 py-2">Bayar Pajak</th>
                   <th className="border border-gray-500 px-4 py-2">Total Gaji</th>

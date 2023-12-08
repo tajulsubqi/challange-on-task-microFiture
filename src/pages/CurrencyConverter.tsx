@@ -2,12 +2,16 @@ import { useState, useEffect } from "react"
 import axios from "axios"
 import Navbar from "../components/Navbar"
 
-const CurrencyConverter = () => {
-  const [amount, setAmount] = useState("")
-  const [sourceCurrency, setSourceCurrency] = useState("USD")
-  const [targetCurrency, setTargetCurrency] = useState("IDR")
-  const [result, setResult] = useState("")
-  const [exchangeRate, setExchangeRate] = useState(null)
+interface CurrencyConverterProps {
+  // Define props if any
+}
+
+const CurrencyConverter: React.FC<CurrencyConverterProps> = () => {
+  const [amount, setAmount] = useState<string>("")
+  const [sourceCurrency, setSourceCurrency] = useState<string>("USD")
+  const [targetCurrency, setTargetCurrency] = useState<string>("IDR")
+  const [result, setResult] = useState<string>("")
+  const [exchangeRate, setExchangeRate] = useState<number | null>(null)
 
   useEffect(() => {
     // Fungsi untuk mendapatkan nilai tukar mata uang dari ExchangeRate-API
@@ -25,15 +29,15 @@ const CurrencyConverter = () => {
     fetchExchangeRate()
   }, [sourceCurrency, targetCurrency])
 
-  const handleAmountChange = (e) => {
+  const handleAmountChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setAmount(e.target.value)
   }
 
-  const handleSourceCurrencyChange = (e) => {
+  const handleSourceCurrencyChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     setSourceCurrency(e.target.value)
   }
 
-  const handleTargetCurrencyChange = (e) => {
+  const handleTargetCurrencyChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     setTargetCurrency(e.target.value)
   }
 
@@ -43,13 +47,13 @@ const CurrencyConverter = () => {
       return
     }
 
-    const convertedResult = amount * exchangeRate
+    const convertedResult = parseFloat(amount) * exchangeRate
     setResult(convertedResult.toFixed(2)) // Format to two decimal places
   }
 
   return (
     <>
-      <Navbar/>
+      <Navbar />
       <div className="container mt-10">
         <h1 className="text-4xl font-bold text-center text-blus">Currency Converter</h1>
         <div className="w-[950px] mx-auto p-5 mt-5 border shadow-sm bg-slate-100 rounded-md">

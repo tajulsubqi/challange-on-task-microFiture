@@ -1,34 +1,34 @@
-import React, { useState, useEffect } from "react"
+import React, { useState, useEffect, ChangeEvent, FormEvent } from "react"
 import Navbar from "../components/Navbar"
 
-const WordGame = () => {
-  const [wordList, setWordList] = useState([])
-  const [currentWordIndex, setCurrentWordIndex] = useState(0)
-  const [userInput, setUserInput] = useState("")
-  const [score, setScore] = useState(0)
-  const [error, setError] = useState("")
-  const [showAlert, setShowAlert] = useState(false)
+const WordGame: React.FC = () => {
+  const [wordList, setWordList] = useState<string[]>([])
+  const [currentWordIndex, setCurrentWordIndex] = useState<number>(0)
+  const [userInput, setUserInput] = useState<string>("")
+  const [score, setScore] = useState<number>(0)
+  const [error, setError] = useState<string>("")
+  const [showAlert, setShowAlert] = useState<boolean>(false)
 
   // Daftar kata-kata dummy (nama hewan)
-  const dummyWords = [
-    "dandi",
-    "kris",
-    "putu",
+  const dummyWords: string[] = [
+    "dandiSaputra",
+    "krisLouli",
+    "putuWiranto",
     "sultan",
-    "aniq",
-    "rahmat",
+    "aniq rizqi",
+    "rahmat kurniawan",
     "rizqul",
-    "arif",
+    "arif luthfi",
   ]
 
   // Mengacak setiap huruf dalam sebuah kata
-  const shuffle = (word) => {
+  const shuffle = (word: string): string => {
     const shuffledArray = word.split("").sort(() => Math.random() - 0.5)
     return shuffledArray.join("")
   }
 
   // Mengacak huruf dalam setiap kata
-  const shuffleWords = (words) => {
+  const shuffleWords = (words: string[]): string[] => {
     return words.map((word) => shuffle(word))
   }
 
@@ -39,12 +39,12 @@ const WordGame = () => {
   }, [])
 
   // Fungsi untuk menangani perubahan input
-  const handleInputChange = (e) => {
+  const handleInputChange = (e: ChangeEvent<HTMLInputElement>): void => {
     setUserInput(e.target.value)
   }
 
   // Fungsi untuk menangani pengiriman jawaban
-  const handleSubmit = (e) => {
+  const handleSubmit = (e: FormEvent<HTMLFormElement>): void => {
     e.preventDefault()
     const currentWord = dummyWords[currentWordIndex]
     if (userInput.toLowerCase() === currentWord.toLowerCase()) {
@@ -59,7 +59,7 @@ const WordGame = () => {
     }
   }
 
-  const handleAlertClose = () => {
+  const handleAlertClose = (): void => {
     setShowAlert(false)
     setError("")
   }
@@ -86,8 +86,9 @@ const WordGame = () => {
         )}
       </div>
       <div className="container mt-10">
-        <h1 className="text-4xl font-bold text-center text-blus">Word Game</h1>
-        <div className="w-[400px] mx-auto mt-10 border border-gray-300 bg-slate-50 rounded-md">
+        <h1 className="text-4xl font-bold text-center text-blus">Word Scramble</h1>
+        <h1 className="text-lg font-bold text-center mt-10 text-blus">anggota dumbways b-50</h1>
+        <div className="w-[400px] mx-auto mt-4 border border-gray-300 bg-slate-50 rounded-md">
           <div className="bg-slate-300 text-center py-1">
             <p className="font-medium">
               Score: <span className="text-red-500 font-bold">{score}</span>
@@ -111,7 +112,7 @@ const WordGame = () => {
               type="submit"
               className="text-md font-semibold px-4 py-2 bg-blus text-white rounded-xl hover:bg-teal-700 duration-300"
             >
-              Submit
+              enter
             </button>
           </form>
         </div>
